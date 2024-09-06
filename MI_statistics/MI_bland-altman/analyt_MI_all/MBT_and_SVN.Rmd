@@ -1,0 +1,376 @@
+---
+title: "MBT and SVN"
+output:
+  html_document:
+    df_print: tibble
+    highlight: pygments
+    theme: cerulean
+    toc: yes
+    toc_depth: 6
+    toc_float:
+      collapsed: yes
+      smooth_scroll: no
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
+---
+<!-- version -->
+<div align=right>
+<font style="color:#26a169; font-size:80%">Processed: 2024.08.30 14:26</font>
+</div>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+fig.width=7, fig.height=6,
+fig.align = "center",
+comment = NA)
+```
+
+```{css, echo=FALSE}
+.bgobs {
+  background-color: #f5e9ab;
+ }
+.bgcodigo {
+  background-color: #94a6aa;
+ }
+.bgsaida {
+  background-color: #ecf7db;
+ }
+```
+
+
+\clearpage
+# Descriptive statistics
+
+<pre>
+
+  ----------
+  - raw data
+  ----------
+     SVM_mBT   RF_mBT   CNN_mBT   SVM_VSN   RF_VSN   CNN_VSN
+ 1       0.8      0.8       0.8       0.9      0.9       0.9
+ 2       0.7      0.5       0.7       0.7      0.7       0.8
+ 3       0.9      0.8       0.9       0.7      0.6       0.9
+ 4       0.8      0.8       0.9       0.9      0.8       0.9
+ 5       0.9      0.9       0.9       0.8      0.8       0.9
+ 6       0.9      0.9       0.9       0.7      0.7       0.7
+ 7       0.8      0.8       1.0       0.9      0.9       0.9
+ 8       0.6      0.7       0.8       0.6      0.6       0.7
+ 9       0.8      0.8       0.7       0.8      0.7       0.8
+10       0.6      0.7       0.7       0.7      0.6       0.8
+11       0.7      0.7       0.9       0.7      0.9       0.8
+12       0.9      0.8       0.9       0.8      0.7       0.8
+13       0.9      0.9       1.0       0.8      0.6       0.9
+14       0.9      0.9       0.9       0.9      0.9       0.9
+15       0.8      0.7       0.8       0.7      0.7       0.8
+16       0.8      0.8       0.8       0.9      0.8       1.0
+
+   ---------
+   - summary
+   ---------
+               SVM_mBT         RF_mBT        CNN_mBT        SVM_VSN         RF_VSN        CNN_VSN
+   Min.     Min.0.5833     Min.0.5393     Min.0.6793     Min.0.5500     Min.0.5560     Min.0.7125
+1st Qu.   1stQu.0.7524   1stQu.0.7216   1stQu.0.7875   1stQu.0.7219   1stQu.0.6468   1stQu.0.7973
+ Median   Median0.8130   Median0.7877   Median0.8604   Median0.7530   Median0.7260   Median0.8529
+3rd Qu.   3rdQu.0.8873   3rdQu.0.8371   3rdQu.0.9397   3rdQu.0.8700   3rdQu.0.8428   3rdQu.0.9237
+   Max.     Max.0.9176     Max.0.8960     Max.0.9569     Max.0.9000     Max.0.9288     Max.0.9700
+   Mean     Mean0.7981     Mean0.7795     Mean0.8501     Mean0.7725     Mean0.7388     Mean0.8513
+   s.d.             NA          0.103          0.103          0.114          0.091          0.077
+      n             16             16             16             16             16             16
+     NA              0              0              0              0              0              0
+
+  ---------------------
+  - data under analysis
+  ---------------------
+     MBT   SVN
+ 1   0.8   0.9
+ 2   0.6   0.8
+ 3   0.9   0.7
+ 4   0.8   0.9
+ 5   0.9   0.8
+ 6   0.9   0.7
+ 7   0.8   0.9
+ 8   0.7   0.6
+ 9   0.8   0.7
+10   0.7   0.7
+11   0.8   0.8
+12   0.9   0.8
+13   0.9   0.7
+14   0.9   0.9
+15   0.8   0.7
+16   0.8   0.9
+
+   ---------
+   - summary
+   ---------
+                   MBT            SVN
+   Min.     Min.0.6417     Min.0.6306
+1st Qu.   1stQu.0.7595   1stQu.0.7324
+ Median   Median0.8136   Median0.7555
+3rd Qu.   3rdQu.0.8784   3rdQu.0.8661
+   Max.     Max.0.9176     Max.0.9243
+   Mean     Mean0.8093     Mean0.7875
+   s.d.          0.087          0.089
+      n             16             16
+     NA              0              0
+
+</pre>
+
+<pre>
+
+Lambda = 1.624706 [0.802424,3.289622]
+
+</pre>
+
+## Traditional correlation
+
+<pre>
+
+	Pearson's product-moment correlation
+
+data:  as.numeric(unlist(data[, 1])) and as.numeric(unlist(data[, 2]))
+t = 1.2144, df = 14, p-value = 0.2447
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.2207931  0.6976476
+sample estimates:
+      cor 
+0.3086988 
+
+</pre>
+
+## Raw data
+```{r, echo=FALSE, out.width = "90%"}
+knitr::include_graphics("./graph/MBT_x_SVN_raw.png")
+```
+
+
+## Distribution of original data
+
+### - density plots
+```{r, echo=FALSE, out.width = "90%"}
+knitr::include_graphics("./graph/MBT_x_SVN_density.png")
+```
+
+```{r, echo=FALSE, out.width = "90%"}
+knitr::include_graphics("./graph/MBT_x_SVN_density4.png")
+```
+
+
+### - boxplots
+```{r, echo=FALSE, out.width = "90%"}
+knitr::include_graphics("./graph/MBT_x_SVN_boxplotraw.png")
+```
+
+```{r, echo=FALSE, out.width = "90%"}
+knitr::include_graphics("./graph/MBT_x_SVN_boxplotavg.png")
+```
+
+
+### - bagplot
+```{r, echo=FALSE, out.width = "90%"}
+knitr::include_graphics("./graph/MBT_x_SVN_bagplot.png")
+```
+
+
+## Robust ordinary least square linear regression
+```{r, echo=FALSE, out.width = "90%"}
+knitr::include_graphics("./graph/MBT_x_SVN_regression.png")
+```
+
+
+## Classical Bland and Altman plot method
+
+### raw data
+```{r, echo=FALSE, out.width = "90%"}
+knitr::include_graphics("./graph/MBT_x_SVN_blandaltmanraw.png")
+```
+
+
+### data under analysis
+```{r, echo=FALSE, out.width = "90%"}
+knitr::include_graphics("./graph/MBT_x_SVN_blandaltman.png")
+```
+
+
+<pre>
+             estimate
+mean.diff -0.02174913
+lowerLoA  -0.22417715
+upperLoA   0.18067889
+ciLoA      0.05503382
+alpha      0.05000000
+</pre>
+
+\clearpage
+# Test of structural accuracy
+
+<pre>
+Hedberg, EC, Ayers, S (2015) The power of a paired t-test
+with a covariate. Social Science Research 50: 277-91
+
+-------
+- model
+-------
+	IV = MBT - mean(MBT)
+	DV = SVN - MBT
+
+------------------------------
+- functional analytic approach
+------------------------------
+
+Call: estimatr::lm_robust(formula = DV ~ IV)
+
+Standard error type:	HC2
+
+Coefficients:
+              Estimate   Std. Error   t value   Pr(>|t|)   CI Lower   CI Upper   DF
+(Intercept)     -0.022        0.022    -0.999      0.335     -0.068      0.02514.000
+         IV     -0.684        0.242    -2.825      0.014     -1.204     -0.16514.000
+
+
+Multiple R-squared: 0.3313,  Adjusted R-squared: 0.2835
+F-statistic: 8 on 1 and 14 DF, p-value: 0.013507
+
+Decision (analytic):
+
+	H0: equal structural means between methods is not rejected
+	(p = 0.3345)
+
+Decision by 95% confidence interval:
+	avg{SVN - MBT} = -0.0217 + -0.6844 {MBT - mean(MBT)}
+
+	H0: accuracy point(0,0) inside 95% CI [-0.0899, 0.0463] is not rejected
+	n: 16 data pairs
+	Bias 95%CI: between -0.0899 and 0.0463.
+
+</pre>
+```{r, echo=FALSE, out.width = "90%"}
+knitr::include_graphics("./graph/MBT_x_SVN_accuracy.png")
+```
+
+
+\clearpage
+# Test of structural precision
+
+<pre>
+
+-------------
+- lambda test
+-------------
+ 
+ Francq B, Berger M (2019). 
+BivRegBLS: Tolerance Interval and EIV Regression -
+Method Comparison Studies_. R package version 1.1.1,
+https://CRAN.R-project.org/package=BivRegBLS
+
+Chapter 303, NCSS 11 (2016): Deming regression
+https://www.ncss.com/wp-content/themes/ncss/pdf/
+	Procedures/NCSS/Deming_Regression.pdf
+
+Assuming repeated measures per method:
+	- reference method (3): MBT (SVM_mBT, RF_mBT, CNN_mBT)
+	- putative method (3): SVN (SVM_VSN, RF_VSN, CNN_VSN)
+ 
+ lambda = V[delta]/V[epsilon] = 1 is not rejected
+</pre>
+
+<pre>
+
+Shukla, GK (1973) Some exact tests on hypothesis
+about Grubbs estimators. Biometrics 29: 373-377
+
+-------
+- model
+-------
+	IV = (MBT + SVN) / 2
+	DV = SVN - MBT
+
+------------------------------
+- functional analytic approach
+------------------------------
+
+Call: estimatr::lm_robust(formula = DV ~ IV)
+
+Standard error type:	HC2
+
+Coefficients:
+              Estimate   Std. Error   t value   Pr(>|t|)   CI Lower   CI Upper   DF
+(Intercept)     -0.049        0.238    -0.205      0.841     -0.559      0.46114.000
+         IV      0.034        0.302     0.112      0.912     -0.613      0.68114.000
+
+
+Multiple R-squared: 5e-04,  Adjusted R-squared: -0.0708
+F-statistic: 0 on 1 and 14 DF, p-value: 0.912357
+
+Decision (analytic):
+
+	H0: equal structural precisions between methods is not rejected
+	(p = 0.9124)
+
+Decision by 95% confidence band:
+	avg{SVN - MBT} = -0.0487 + 0.0338 {(MBT + SVN)/2}
+
+	H0: precision line horizontal (x,0)
+	with translation from -0.0899 to 0.0463 inside 95% CB is not rejected
+	n: 16 data pairs
+</pre>
+```{r, echo=FALSE, out.width = "90%"}
+knitr::include_graphics("./graph/MBT_x_SVN_precision.png")
+```
+
+
+\clearpage
+# Test of structural reliability
+
+## structural bisector line
+
+<pre>
+Creasy, MA (1956) Confidence Limits for the Gradient
+in the Linear Functional Relationship. Journal of the 
+Royal Statistical Society 18(1):65-69
+
+Glaister, P (2001) Least squares revisited.
+The Mathematical Gazette 85(502): 104-107.
+
+-------
+- model
+-------
+
+	X = True[MBT]
+	Y = True[SVN]
+
+Deming regression for reliability
+	Y = intercept + slope . X
+
+------------------------------
+- functional analytic approach
+------------------------------
+
+Decision by 95% confidence band:
+	avg{True[SVN]} = 0.2592 + 0.6528 {True[MBT]}
+
+	H0: reliability line IV=DV
+	with translation from -0.0899 to 0.0463 inside 95% CB is not rejected
+lambda = 1.624706
+	n: 16 data pairs
+</pre>
+```{r, echo=FALSE, out.width = "90%"}
+knitr::include_graphics("./graph/MBT_x_SVN_reliability.png")
+```
+
+
+## structural confidence elliptical region
+
+<pre>
+
+
+Decision by 95% confidence ellipse:
+
+	H0: intercept = [-0.0899,0.0463], slope = 1 inside 95% ellipse is not rejected
+	n: 16 data pairs
+</pre>
+```{r, echo=FALSE, out.width = "90%"}
+knitr::include_graphics("./graph/MBT_x_SVN_ellipse.png")
+```
+

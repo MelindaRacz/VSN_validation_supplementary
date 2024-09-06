@@ -1,0 +1,178 @@
+
+---------------------------
+mBT_VEP_PtP and VSN_VEP_PtP
+---------------------------
+
+----------------------
+Descriptive statistics
+----------------------
+
+  ---------------------
+  - data under analysis
+  ---------------------
+     mBT_VEP_PtP   VSN_VEP_PtP
+ 1           7.7          16.4
+ 2           6.5          11.8
+ 3           6.9           8.0
+ 4           4.2           6.1
+ 5           3.7           4.5
+ 6          13.2          13.0
+ 7           3.8           6.1
+ 8          12.6          19.0
+ 9           2.8           6.3
+10           6.4          13.9
+11           7.2           6.6
+12           7.2           7.1
+13          17.5          14.2
+14           9.5          12.1
+15          12.6          13.7
+16           3.8           5.1
+
+   ---------
+   - summary
+   ---------
+           mBT_VEP_PtP    VSN_VEP_PtP
+   Min.      Min.2.831      Min.4.532
+1st Qu.    1stQu.4.124    1stQu.6.239
+ Median    Median7.032    Median9.872
+3rd Qu.   3rdQu.10.259   3rdQu.13.736
+   Max.     Max.17.503     Max.19.016
+   Mean      Mean7.842     Mean10.246
+   s.d.          4.194          4.515
+      n             16             16
+     NA              0              0
+
+-----------------------
+Traditional correlation
+-----------------------
+
+	Pearson's product-moment correlation
+
+data:  as.numeric(unlist(data[, 1])) and as.numeric(unlist(data[, 2]))
+t = 4.0354, df = 14, p-value = 0.001228
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.3732749 0.9013584
+sample estimates:
+      cor 
+0.7332954 
+
+--------------------------------
+Classical Bland-Altman estimates
+--------------------------------
+           estimate
+mean.diff  2.404276
+lowerLoA  -3.856401
+upperLoA   8.664952
+ciLoA      1.702081
+alpha      0.050000
+
+---------------------------
+Test of structural accuracy
+---------------------------
+Hedberg, EC, Ayers, S (2015) The power of a paired t-test
+with a covariate. Social Science Research 50: 277-91
+
+-------
+- model
+-------
+	IV = mBT_VEP_PtP - mean(mBT_VEP_PtP)
+	DV = VSN_VEP_PtP - mBT_VEP_PtP
+
+----------------------------
+- functional robust approach
+----------------------------
+
+Decision by 95% confidence interval:
+	avg{VSN_VEP_PtP - mBT_VEP_PtP} = 2.5136 + -0.1974 {mBT_VEP_PtP - mean(mBT_VEP_PtP)}
+
+	H0: accuracy point(0,0) inside 95% CI [0.9349, 4.3446] is rejected
+	n: 16 data pairs
+	bootstrapping: 2000 resamplings
+	Bias 95%CI: between 0.9349 and 4.3446.
+
+----------------------------
+Test of structural precision
+----------------------------
+
+-------------
+- lambda test
+-------------
+ 
+ Shukla, GK (1973) Some exact tests on hypothesis
+about Grubbs estimators. Biometrics 29: 373-377
+https://doi.org/10.2307/2529399
+
+Assuming:
+	- reference method: mBT_VEP_PtP
+	- putative method: VSN_VEP_PtP
+ 
+ lambda = V[delta]/V[epsilon] = 1 is not rejected
+
+Shukla, GK (1973) Some exact tests on hypothesis
+about Grubbs estimators. Biometrics 29: 373-377
+
+-------
+- model
+-------
+	IV = (mBT_VEP_PtP + VSN_VEP_PtP) / 2
+	DV = VSN_VEP_PtP - mBT_VEP_PtP
+
+----------------------------
+- functional robust approach
+----------------------------
+
+Decision by 95% confidence band:
+	avg{VSN_VEP_PtP - mBT_VEP_PtP} = 1.5842 + 0.0923 {(mBT_VEP_PtP + VSN_VEP_PtP)/2}
+
+	H0: precision line horizontal (x,0)
+	with translation from 0.9349 to 4.3446 inside 95% CB is not rejected
+	n: 16 data pairs
+	bootstrapping: 2000 resamplings
+------------------------
+structural bisector line
+------------------------
+Creasy, MA (1956) Confidence Limits for the Gradient
+in the Linear Functional Relationship. Journal of the 
+Royal Statistical Society 18(1):65-69
+
+Glaister, P (2001) Least squares revisited.
+The Mathematical Gazette 85(502): 104-107.
+
+-------
+- model
+-------
+
+	X = True[mBT_VEP_PtP]
+	Y = True[VSN_VEP_PtP]
+
+Deming regression for reliability
+	Y = intercept + slope . X
+
+----------------------------
+- functional robust approach
+----------------------------
+
+Decision by 95% confidence band:
+	avg{True[VSN_VEP_PtP]} = 2.4112 + 0.984 {True[mBT_VEP_PtP]}
+
+	H0: reliability line IV=DV
+	with translation from 0.9349 to 4.3446 inside 95% CB is not rejected
+lambda = 1.927396
+	n: 16 data pairs
+	bootstrapping: 2000 resamplings
+---------------------------------------
+structural confidence elliptical region
+---------------------------------------
+
+
+Decision by 95% confidence ellipse:
+
+	H0: intercept = [0.9349,4.3446], slope = 1 inside 95% ellipse is not rejected
+	n: 16 data pairs
+	bootstrapping: 2000 resamplings
+
+
+------------------------------------------------------------
+See also figures (png format) available in subfolder "graph"
+------------------------------------------------------------

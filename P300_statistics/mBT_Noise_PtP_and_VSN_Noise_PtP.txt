@@ -1,0 +1,178 @@
+
+-------------------------------
+mBT_Noise_PtP and VSN_Noise_PtP
+-------------------------------
+
+----------------------
+Descriptive statistics
+----------------------
+
+  ---------------------
+  - data under analysis
+  ---------------------
+     mBT_Noise_PtP   VSN_Noise_PtP
+ 1             1.8             1.1
+ 2             0.8             0.9
+ 3             0.6             0.9
+ 4             1.5             1.5
+ 5             2.7             0.8
+ 6             1.6             2.4
+ 7             2.7             2.3
+ 8             3.2             2.5
+ 9             2.6             0.8
+10             2.4             1.7
+11             2.0             3.4
+12             1.7             0.9
+13             2.1             2.4
+14             0.8             1.4
+15             1.5             0.4
+16             2.5             1.5
+
+   ---------
+   - summary
+   ---------
+          mBT_Noise_PtP   VSN_Noise_PtP
+   Min.      Min.0.6318      Min.0.4012
+1st Qu.    1stQu.1.5038    1stQu.0.9423
+ Median    Median1.9185    Median1.4060
+3rd Qu.    3rdQu.2.5002    3rdQu.2.2939
+   Max.      Max.3.2464      Max.3.4214
+   Mean      Mean1.9115      Mean1.5499
+   s.d.           0.768           0.829
+      n              16              16
+     NA               0               0
+
+-----------------------
+Traditional correlation
+-----------------------
+
+	Pearson's product-moment correlation
+
+data:  as.numeric(unlist(data[, 1])) and as.numeric(unlist(data[, 2]))
+t = 1.321, df = 14, p-value = 0.2077
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.1949679  0.7112436
+sample estimates:
+      cor 
+0.3329123 
+
+--------------------------------
+Classical Bland-Altman estimates
+--------------------------------
+            estimate
+mean.diff -0.3616125
+lowerLoA  -2.1718133
+upperLoA   1.4485882
+ciLoA      0.4921367
+alpha      0.0500000
+
+---------------------------
+Test of structural accuracy
+---------------------------
+Hedberg, EC, Ayers, S (2015) The power of a paired t-test
+with a covariate. Social Science Research 50: 277-91
+
+-------
+- model
+-------
+	IV = mBT_Noise_PtP - mean(mBT_Noise_PtP)
+	DV = VSN_Noise_PtP - mBT_Noise_PtP
+
+----------------------------
+- functional robust approach
+----------------------------
+
+Decision by 95% confidence interval:
+	avg{VSN_Noise_PtP - mBT_Noise_PtP} = -0.3591 + -0.6364 {mBT_Noise_PtP - mean(mBT_Noise_PtP)}
+
+	H0: accuracy point(0,0) inside 95% CI [-0.7662, 0.1262] is not rejected
+	n: 16 data pairs
+	bootstrapping: 2000 resamplings
+	Bias 95%CI: between -0.7662 and 0.1262.
+
+----------------------------
+Test of structural precision
+----------------------------
+
+-------------
+- lambda test
+-------------
+ 
+ Shukla, GK (1973) Some exact tests on hypothesis
+about Grubbs estimators. Biometrics 29: 373-377
+https://doi.org/10.2307/2529399
+
+Assuming:
+	- reference method: mBT_Noise_PtP
+	- putative method: VSN_Noise_PtP
+ 
+ lambda = V[delta]/V[epsilon] = 1 is not rejected
+
+Shukla, GK (1973) Some exact tests on hypothesis
+about Grubbs estimators. Biometrics 29: 373-377
+
+-------
+- model
+-------
+	IV = (mBT_Noise_PtP + VSN_Noise_PtP) / 2
+	DV = VSN_Noise_PtP - mBT_Noise_PtP
+
+----------------------------
+- functional robust approach
+----------------------------
+
+Decision by 95% confidence band:
+	avg{VSN_Noise_PtP - mBT_Noise_PtP} = -0.5374 + 0.1095 {(mBT_Noise_PtP + VSN_Noise_PtP)/2}
+
+	H0: precision line horizontal (x,0)
+	with translation from -0.7662 to 0.1262 inside 95% CB is not rejected
+	n: 16 data pairs
+	bootstrapping: 2000 resamplings
+------------------------
+structural bisector line
+------------------------
+Creasy, MA (1956) Confidence Limits for the Gradient
+in the Linear Functional Relationship. Journal of the 
+Royal Statistical Society 18(1):65-69
+
+Glaister, P (2001) Least squares revisited.
+The Mathematical Gazette 85(502): 104-107.
+
+-------
+- model
+-------
+
+	X = True[mBT_Noise_PtP]
+	Y = True[VSN_Noise_PtP]
+
+Deming regression for reliability
+	Y = intercept + slope . X
+
+----------------------------
+- functional robust approach
+----------------------------
+
+Decision by 95% confidence band:
+	avg{True[VSN_Noise_PtP]} = 0.7871 + 0.401 {True[mBT_Noise_PtP]}
+
+	H0: reliability line IV=DV
+	with translation from -0.7662 to 0.1262 inside 95% CB is not rejected
+lambda = 12.255608
+	n: 16 data pairs
+	bootstrapping: 2000 resamplings
+---------------------------------------
+structural confidence elliptical region
+---------------------------------------
+
+
+Decision by 95% confidence ellipse:
+
+	H0: intercept = [-0.7662,0.1262], slope = 1 inside 95% ellipse is rejected
+	n: 16 data pairs
+	bootstrapping: 2000 resamplings
+
+
+------------------------------------------------------------
+See also figures (png format) available in subfolder "graph"
+------------------------------------------------------------

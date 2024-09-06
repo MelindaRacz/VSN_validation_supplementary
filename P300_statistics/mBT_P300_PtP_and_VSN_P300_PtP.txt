@@ -1,0 +1,178 @@
+
+-----------------------------
+mBT_P300_PtP and VSN_P300_PtP
+-----------------------------
+
+----------------------
+Descriptive statistics
+----------------------
+
+  ---------------------
+  - data under analysis
+  ---------------------
+     mBT_P300_PtP   VSN_P300_PtP
+ 1            5.4            6.5
+ 2            4.4            5.4
+ 3            4.9            7.4
+ 4           12.0            8.4
+ 5            7.0            3.7
+ 6           10.8           11.4
+ 7           10.1            7.5
+ 8            6.6            7.9
+ 9            4.0            4.5
+10            6.7            8.3
+11            4.9            5.7
+12            3.7            4.0
+13            6.2            6.5
+14            2.2            6.5
+15            4.0            2.9
+16            4.8            5.1
+
+   ---------
+   - summary
+   ---------
+           mBT_P300_PtP    VSN_P300_PtP
+   Min.       Min.2.185       Min.2.851
+1st Qu.     1stQu.4.339     1stQu.4.924
+ Median     Median5.196     Median6.488
+3rd Qu.     3rdQu.6.813     3rdQu.7.569
+   Max.      Max.12.028      Max.11.352
+   Mean       Mean6.119       Mean6.341
+   s.d.           2.741           2.153
+      n              16              16
+     NA               0               0
+
+-----------------------
+Traditional correlation
+-----------------------
+
+	Pearson's product-moment correlation
+
+data:  as.numeric(unlist(data[, 1])) and as.numeric(unlist(data[, 2]))
+t = 3.325, df = 14, p-value = 0.005007
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.2513087 0.8726300
+sample estimates:
+      cor 
+0.6642634 
+
+--------------------------------
+Classical Bland-Altman estimates
+--------------------------------
+            estimate
+mean.diff  0.2225088
+lowerLoA  -3.8458331
+upperLoA   4.2908507
+ciLoA      1.1060543
+alpha      0.0500000
+
+---------------------------
+Test of structural accuracy
+---------------------------
+Hedberg, EC, Ayers, S (2015) The power of a paired t-test
+with a covariate. Social Science Research 50: 277-91
+
+-------
+- model
+-------
+	IV = mBT_P300_PtP - mean(mBT_P300_PtP)
+	DV = VSN_P300_PtP - mBT_P300_PtP
+
+----------------------------
+- functional robust approach
+----------------------------
+
+Decision by 95% confidence interval:
+	avg{VSN_P300_PtP - mBT_P300_PtP} = 0.2211 + -0.4946 {mBT_P300_PtP - mean(mBT_P300_PtP)}
+
+	H0: accuracy point(0,0) inside 95% CI [-0.6992, 1.1477] is not rejected
+	n: 16 data pairs
+	bootstrapping: 2000 resamplings
+	Bias 95%CI: between -0.6992 and 1.1477.
+
+----------------------------
+Test of structural precision
+----------------------------
+
+-------------
+- lambda test
+-------------
+ 
+ Shukla, GK (1973) Some exact tests on hypothesis
+about Grubbs estimators. Biometrics 29: 373-377
+https://doi.org/10.2307/2529399
+
+Assuming:
+	- reference method: mBT_P300_PtP
+	- putative method: VSN_P300_PtP
+ 
+ lambda = V[delta]/V[epsilon] = 1 is not rejected
+
+Shukla, GK (1973) Some exact tests on hypothesis
+about Grubbs estimators. Biometrics 29: 373-377
+
+-------
+- model
+-------
+	IV = (mBT_P300_PtP + VSN_P300_PtP) / 2
+	DV = VSN_P300_PtP - mBT_P300_PtP
+
+----------------------------
+- functional robust approach
+----------------------------
+
+Decision by 95% confidence band:
+	avg{VSN_P300_PtP - mBT_P300_PtP} = 1.9964 + -0.2829 {(mBT_P300_PtP + VSN_P300_PtP)/2}
+
+	H0: precision line horizontal (x,0)
+	with translation from -0.6992 to 1.1477 inside 95% CB is not rejected
+	n: 16 data pairs
+	bootstrapping: 2000 resamplings
+------------------------
+structural bisector line
+------------------------
+Creasy, MA (1956) Confidence Limits for the Gradient
+in the Linear Functional Relationship. Journal of the 
+Royal Statistical Society 18(1):65-69
+
+Glaister, P (2001) Least squares revisited.
+The Mathematical Gazette 85(502): 104-107.
+
+-------
+- model
+-------
+
+	X = True[mBT_P300_PtP]
+	Y = True[VSN_P300_PtP]
+
+Deming regression for reliability
+	Y = intercept + slope . X
+
+----------------------------
+- functional robust approach
+----------------------------
+
+Decision by 95% confidence band:
+	avg{True[VSN_P300_PtP]} = 2.4434 + 0.6348 {True[mBT_P300_PtP]}
+
+	H0: reliability line IV=DV
+	with translation from -0.6992 to 1.1477 inside 95% CB is not rejected
+lambda = 1.672141
+	n: 16 data pairs
+	bootstrapping: 2000 resamplings
+---------------------------------------
+structural confidence elliptical region
+---------------------------------------
+
+
+Decision by 95% confidence ellipse:
+
+	H0: intercept = [-0.6992,1.1477], slope = 1 inside 95% ellipse is not rejected
+	n: 16 data pairs
+	bootstrapping: 2000 resamplings
+
+
+------------------------------------------------------------
+See also figures (png format) available in subfolder "graph"
+------------------------------------------------------------
